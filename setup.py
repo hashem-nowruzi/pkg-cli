@@ -16,4 +16,9 @@ setup(name='pkg-cli',
       author_email='PersonalHashem@gmail.com',
       url='https://github.com/githashem/pkg-cli',
       python_requires='>=3.7',
+      entry_points={
+            'console_scripts': [
+                  'pkg = pkg.__main__:main',
+            ],
+      },
       )
