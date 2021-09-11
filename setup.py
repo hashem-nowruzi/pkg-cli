@@ -1,10 +1,11 @@
 from setuptools import setup
 from pathlib import Path
+from pkg import __version__
 
 HERE = Path(__file__).parent
 
 setup(name='pkg-cli',
-      version='0.0.0',
+      version=__version__,
       packages=['pkg'],
       description='Create Packages and Publish them to PyPi',
       keywords=['pypi', 'package', 'pkg-cli', 'pkg'],
