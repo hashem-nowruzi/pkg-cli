@@ -1,4 +1,4 @@
-from . import PROJECT_DIR
+from .commands import InitCommand
 import sys
 
 
@@ -12,7 +12,7 @@ class PKG:
 
         command = self.argv[0]
         if command == 'init':
-            (PROJECT_DIR / 'package.py').touch(exist_ok=True)
+            InitCommand(self.argv[1:]).execute()
 
 
 def main():
