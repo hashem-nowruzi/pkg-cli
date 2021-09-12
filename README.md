@@ -1,4 +1,4 @@
-![pypi version]
+[![pypi version]](https://pypi.org/project/pkg-cli/)
 [![pypi license]](https://github.com/githashem/pkg-cli/blob/main/LICENSE)
 
 
