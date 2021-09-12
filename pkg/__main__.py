@@ -1,3 +1,4 @@
+from . import PROJECT_DIR
 import sys
 
 
@@ -8,7 +9,10 @@ class PKG:
     def execute(self) -> None:
         if self.argv is None:
             return
-        pass
+
+        command = self.argv[0]
+        if command == 'init':
+            (PROJECT_DIR / 'package.py').touch(exist_ok=True)
 
 
 def main():
