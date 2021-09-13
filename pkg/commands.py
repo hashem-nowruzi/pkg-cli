@@ -2,6 +2,8 @@ from importlib.machinery import SourceFileLoader
 from abc import ABC, abstractmethod
 from argparse import ArgumentParser
 from . import PROJECT_DIR, HERE
+import subprocess
+import sys
 
 
 class BaseCommand(ABC):
@@ -42,4 +44,5 @@ class PublishCommand(BaseCommand):
         super().__init__(parser)
 
     def execute(self, args) -> None:
-        pass
+        subprocess.run([sys.executable, '-m', 'pkg.setup', 'sdist'])
+        subprocess.run([sys.executable, '-m', 'twine', 'upload', 'dist/*'])
