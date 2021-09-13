@@ -20,6 +20,11 @@ config = {
     'long_description': (HERE / 'README.md').read_text(),
     'long_description_content_type': 'text/markdown',
 
+    'install_requires': [
+        'twine==3.4.2',
+        'setuptools==57.4.0',
+    ],
+
     'python_requires': '>=3.7',
     'entry_points': {
         'console_scripts': [
