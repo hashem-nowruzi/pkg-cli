@@ -25,6 +25,12 @@ class BaseCommand(ABC):
         except AttributeError:
             raise AttributeError('The "package.py" file does not have a variable called "config"!!')
 
+    @staticmethod
+    def python(*args):
+        command = [sys.executable]
+        command.extend(args)
+        subprocess.run(command)
+
 
 class InitCommand(BaseCommand):
     def __init__(self, parser):
@@ -44,5 +50,5 @@ class PublishCommand(BaseCommand):
         super().__init__(parser)
 
     def execute(self, args) -> None:
-        subprocess.run([sys.executable, '-m', 'pkg.setup', 'sdist'])
-        subprocess.run([sys.executable, '-m', 'twine', 'upload', 'dist/*'])
+        self.python('-m', 'pkg.setup', 'sdist')
+        self.python('-m', 'twine', 'upload', 'dist/*')
