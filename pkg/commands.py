@@ -25,3 +25,11 @@ class InitCommand(BaseCommand):
         else:
             with open(f'{HERE}/templates/package.py', 'r') as file:
                 package_file.write_text(file.read())
+
+
+class PublishCommand(BaseCommand):
+    def __init__(self, parser):
+        super().__init__(parser)
+
+    def execute(self, args) -> None:
+        pass
