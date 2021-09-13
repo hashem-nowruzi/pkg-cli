@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from argparse import ArgumentParser
-from . import PROJECT_DIR
+from . import PROJECT_DIR, HERE
 
 
 class BaseCommand(ABC):
@@ -19,4 +19,9 @@ class InitCommand(BaseCommand):
         super().__init__(parser)
 
     def execute(self, args) -> None:
-        (PROJECT_DIR / 'package.py').touch(exist_ok=True)
+        package_file = PROJECT_DIR / 'package.py'
+        if package_file.exists() and package_file.is_file():
+            print('Warning: This command could not be executed because the "package.py" file exists.')
+        else:
+            with open(f'{HERE}/templates/package.py', 'r') as file:
+                package_file.write_text(file.read())
