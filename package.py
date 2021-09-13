@@ -1,3 +1,4 @@
+from setuptools import find_packages
 from pathlib import Path
 from pkg import __version__
 
@@ -6,7 +7,7 @@ HERE = Path(__file__).parent
 config = {
     'name': 'pkg-cli',
     'version': __version__,
-    'packages': ['pkg'],
+    'packages': find_packages(),
     'url': 'https://github.com/githashem/pkg-cli',
 
     'license': 'MIT',
