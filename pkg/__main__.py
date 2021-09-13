@@ -1,23 +1,25 @@
 from .commands import InitCommand
-import sys
+from argparse import ArgumentParser
+from . import __version__
 
 
 class PKG:
-    def __init__(self, argv):
-        self.argv = argv if argv else None
+    def __init__(self):
+        self.parser = ArgumentParser(prog='pkg')
+        self.parser.add_argument('--version', action='version', version=__version__)
+
+        subparsers = self.parser.add_subparsers(dest='command')
+        InitCommand(subparsers.add_parser('init', help='Create "package.py" file'))
 
     def execute(self) -> None:
-        if self.argv is None:
+        args = self.parser.parse_args()
+        if args.command is None:
             return
-
-        command = self.argv[0]
-        if command == 'init':
-            InitCommand(self.argv[1:]).execute()
+        args.func(args)
 
 
 def main():
-    pkg = PKG(sys.argv[1:])
-    pkg.execute()
+    PKG().execute()
 
 
 if __name__ == '__main__':
