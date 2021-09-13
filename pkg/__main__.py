@@ -14,6 +14,7 @@ class PKG:
     def execute(self) -> None:
         args = self.parser.parse_args()
         if args.command is None:
+            self.parser.parse_args(['-h'])
             return
         args.func(args)
 
