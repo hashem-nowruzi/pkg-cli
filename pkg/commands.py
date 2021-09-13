@@ -1,3 +1,4 @@
+from importlib.machinery import SourceFileLoader
 from abc import ABC, abstractmethod
 from argparse import ArgumentParser
 from . import PROJECT_DIR, HERE
@@ -12,6 +13,15 @@ class BaseCommand(ABC):
     @abstractmethod
     def execute(self, args) -> None:
         pass
+
+    @staticmethod
+    def get_user_config():
+        try:
+            return SourceFileLoader('package', str(PROJECT_DIR / 'package.py')).load_module().config
+        except FileNotFoundError:
+            raise FileNotFoundError('The "package.py" file is not found!!')
+        except AttributeError:
+            raise AttributeError('The "package.py" file does not have a variable called "config"!!')
 
 
 class InitCommand(BaseCommand):
