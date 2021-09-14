@@ -1,8 +1,8 @@
-from importlib.machinery import SourceFileLoader
 from abc import ABC, abstractmethod
 from argparse import ArgumentParser
 from . import PROJECT_DIR, HERE
 import subprocess
+import json
 import sys
 
 
@@ -19,11 +19,10 @@ class BaseCommand(ABC):
     @staticmethod
     def get_user_config():
         try:
-            return SourceFileLoader('package', str(PROJECT_DIR / 'package.py')).load_module().config
+            with open(f'{PROJECT_DIR}/package.json', 'r') as file:
+                return json.load(file)
         except FileNotFoundError:
-            raise FileNotFoundError('The "package.py" file is not found!!')
-        except AttributeError:
-            raise AttributeError('The "package.py" file does not have a variable called "config"!!')
+            raise FileNotFoundError('The "package.json" file is not found!!')
 
     @staticmethod
     def python(*args):
@@ -37,12 +36,15 @@ class InitCommand(BaseCommand):
         super().__init__(parser)
 
     def execute(self, args) -> None:
-        package_file = PROJECT_DIR / 'package.py'
+        package_file = PROJECT_DIR / 'package.json'
         if package_file.exists() and package_file.is_file():
-            print('Warning: This command could not be executed because the "package.py" file exists.')
+            print('Warning: This command could not be executed because the "package.json" file exists.')
         else:
-            with open(f'{HERE}/templates/package.py', 'r') as file:
-                package_file.write_text(file.read())
+            with open(f'{HERE}/package.json', 'r') as file:
+                config = json.load(file)
+
+            with open(f'{PROJECT_DIR}/package.json', 'w') as outfile:
+                json.dump(config, outfile, indent=4)
 
 
 class PublishCommand(BaseCommand):
