@@ -7,7 +7,6 @@ import sys
 
 
 class BaseCommand(ABC):
-    @abstractmethod
     def __init__(self, parser):
         self.parser: ArgumentParser = parser
         self.parser.set_defaults(func=self.execute)
@@ -32,9 +31,6 @@ class BaseCommand(ABC):
 
 
 class InitCommand(BaseCommand):
-    def __init__(self, parser):
-        super().__init__(parser)
-
     def execute(self, args) -> None:
         package_file = PROJECT_DIR / 'package.json'
         if package_file.exists() and package_file.is_file():
@@ -48,9 +44,6 @@ class InitCommand(BaseCommand):
 
 
 class PublishCommand(BaseCommand):
-    def __init__(self, parser):
-        super().__init__(parser)
-
     def execute(self, args) -> None:
         self.python('-m', 'pkg.setup', 'sdist')
         self.python('-m', 'twine', 'upload', 'dist/*')
