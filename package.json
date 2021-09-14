@@ -1,0 +1,25 @@
+{
+    "name": "pkg-cli",
+    "version": "2.0.0",
+    "packages": ["pkg"],
+    "url": "https://github.com/githashem/pkg-cli",
+
+    "license": "MIT",
+    "description": "Create Packages and Publish them to PyPi",
+    "keywords": ["pypi", "package", "pkg-cli", "pkg"],
+
+    "author": "Hashem",
+    "author_email": "PersonalHashem@gmail.com",
+
+    "install_requires": [
+        "twine==3.4.2",
+        "setuptools==57.4.0"
+    ],
+
+    "python_requires": ">=3.7",
+    "entry_points": {
+        "console_scripts": [
+            "pkg = pkg.__main__:main"
+        ]
+    }
+}
