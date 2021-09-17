@@ -1,7 +1,7 @@
 from .decorators import package_json_required
 from abc import ABC, abstractmethod
 from argparse import ArgumentParser
-from . import PROJECT_DIR, HERE
+from . import PROJECT_DIR
 import subprocess
 import json
 import sys
@@ -34,8 +34,7 @@ class BaseCommand(ABC):
 class InitCommand(BaseCommand):
     @package_json_required(required=False)
     def execute(self, args) -> None:
-        with open(f'{HERE}/package.json', 'r') as file:
-            config = json.load(file)
+        config = {"name": "<package_name>", "version": "0.1.0", "packages": []}
 
         with open(f'{PROJECT_DIR}/package.json', 'w') as outfile:
             json.dump(config, outfile, indent=4)

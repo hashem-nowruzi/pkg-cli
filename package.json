@@ -16,7 +16,6 @@
         "setuptools==57.4.0"
     ],
 
-    "data_files": [["pkg", ["pkg/package.json"]]],
     "python_requires": ">=3.7",
     "entry_points": {
         "console_scripts": [
