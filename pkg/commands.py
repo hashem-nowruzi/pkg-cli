@@ -21,7 +21,7 @@ class BaseCommand(ABC):
             with open(f'{PROJECT_DIR}/package.json', 'r') as file:
                 return json.load(file)
         except FileNotFoundError:
-            raise FileNotFoundError('The "package.json" file is not found!!')
+            print('Error: The "package.json" file is not found!!')
 
     @staticmethod
     def python(*args):
