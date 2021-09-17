@@ -1,14 +1,15 @@
+from .decorators import package_json_required
 from abc import ABC, abstractmethod
 from argparse import ArgumentParser
-from . import PROJECT_DIR, HERE
+from . import PROJECT_DIR
 import subprocess
 import json
 import sys
 
 
 class BaseCommand(ABC):
-    def __init__(self, parser):
-        self.parser: ArgumentParser = parser
+    def __init__(self, parser: ArgumentParser):
+        self.parser = parser
         self.parser.set_defaults(func=self.execute)
 
     @abstractmethod
@@ -21,7 +22,7 @@ class BaseCommand(ABC):
             with open(f'{PROJECT_DIR}/package.json', 'r') as file:
                 return json.load(file)
         except FileNotFoundError:
-            raise FileNotFoundError('The "package.json" file is not found!!')
+            print('Error: The "package.json" file is not found!!')
 
     @staticmethod
     def python(*args):
@@ -31,19 +32,16 @@ class BaseCommand(ABC):
 
 
 class InitCommand(BaseCommand):
+    @package_json_required(required=False)
     def execute(self, args) -> None:
-        package_file = PROJECT_DIR / 'package.json'
-        if package_file.exists() and package_file.is_file():
-            print('Warning: This command could not be executed because the "package.json" file exists.')
-        else:
-            with open(f'{HERE}/package.json', 'r') as file:
-                config = json.load(file)
+        config = {"name": "<package_name>", "version": "0.1.0", "packages": []}
 
-            with open(f'{PROJECT_DIR}/package.json', 'w') as outfile:
-                json.dump(config, outfile, indent=4)
+        with open(f'{PROJECT_DIR}/package.json', 'w') as outfile:
+            json.dump(config, outfile, indent=4)
 
 
 class PublishCommand(BaseCommand):
+    @package_json_required
     def execute(self, args) -> None:
         self.python('-m', 'pkg.setup', 'sdist')
         self.python('-m', 'twine', 'upload', 'dist/*')

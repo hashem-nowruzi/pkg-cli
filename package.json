@@ -1,6 +1,6 @@
 {
     "name": "pkg-cli",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "packages": ["pkg"],
     "url": "https://github.com/githashem/pkg-cli",
 
