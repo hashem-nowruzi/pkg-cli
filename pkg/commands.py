@@ -8,8 +8,8 @@ import sys
 
 
 class BaseCommand(ABC):
-    def __init__(self, parser):
-        self.parser: ArgumentParser = parser
+    def __init__(self, parser: ArgumentParser):
+        self.parser = parser
         self.parser.set_defaults(func=self.execute)
 
     @abstractmethod
