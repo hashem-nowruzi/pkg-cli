@@ -45,5 +45,6 @@ class InitCommand(BaseCommand):
 
 class PublishCommand(BaseCommand):
     def execute(self, args) -> None:
-        self.python('-m', 'pkg.setup', 'sdist')
-        self.python('-m', 'twine', 'upload', 'dist/*')
+        if (PROJECT_DIR / 'package.json').exists() and (PROJECT_DIR / 'package.json').is_file():
+            self.python('-m', 'pkg.setup', 'sdist')
+            self.python('-m', 'twine', 'upload', 'dist/*')
