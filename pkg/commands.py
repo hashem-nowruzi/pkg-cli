@@ -32,12 +32,15 @@ class BaseCommand(ABC):
 
 
 class InitCommand(BaseCommand):
-    @package_json_required(required=False)
     def execute(self, args) -> None:
         config = {"name": "<package_name>", "version": "0.1.0", "packages": []}
 
-        with open(f'{PROJECT_DIR}/package.json', 'w') as outfile:
-            json.dump(config, outfile, indent=4)
+        package_file = PROJECT_DIR / 'package.json'
+        if package_file.exists() and package_file.is_file():
+            print('Warning: The "package.json" file exists!!')
+        else:
+            with open(str(package_file), 'w') as outfile:
+                json.dump(config, outfile, indent=4)
 
 
 class PublishCommand(BaseCommand):
