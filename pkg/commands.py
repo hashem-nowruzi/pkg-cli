@@ -1,14 +1,7 @@
 from .decorators import package_json_file_required
+from .utils import python
 from . import PROJECT_DIR
-import subprocess
 import json
-import sys
-
-
-def python(*args):
-    command = [sys.executable]
-    command.extend(args)
-    subprocess.run(command)
 
 
 def init(args):
