@@ -1,4 +1,4 @@
-from .decorators import package_json_required
+from .decorators import package_json_file_required
 from . import PROJECT_DIR
 import subprocess
 import json
@@ -29,7 +29,7 @@ def init(args):
             json.dump(config, outfile, indent=4)
 
 
-@package_json_required
+@package_json_file_required
 def publish(args):
     python('-m', 'pkg.setup', 'sdist')
     python('-m', 'twine', 'upload', 'dist/*')

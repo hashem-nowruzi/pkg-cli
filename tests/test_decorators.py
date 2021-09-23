@@ -1,12 +1,12 @@
-from pkg.decorators import package_json_required
+from pkg.decorators import package_json_file_required
 from utils import CapturingOutput
 from test_commands import HERE
 import unittest
 
 
 class DecoratorTest(unittest.TestCase):
-    def test_package_json_required(self):
-        func = package_json_required(lambda: print('Function Done!'))
+    def test_package_json_file_required(self):
+        func = package_json_file_required(lambda: print('Function Done!'))
 
         with CapturingOutput() as output:
             (HERE / 'package.json').touch(exist_ok=True)
