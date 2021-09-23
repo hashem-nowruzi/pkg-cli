@@ -1,5 +1,5 @@
 import unittest
-from pkg.__main__ import PKG
+from pkg.__main__ import get_parser
 from pathlib import Path
 
 HERE = Path(__file__).parent
@@ -7,7 +7,7 @@ HERE = Path(__file__).parent
 
 class BaseCommandTest(unittest.TestCase):
     def setUp(self) -> None:
-        self.parser = PKG().parser
+        self.parser = get_parser()
 
     def tearDown(self) -> None:
         (HERE / 'package.json').unlink(missing_ok=True)
