@@ -5,14 +5,6 @@ import json
 import sys
 
 
-def get_user_config():
-    try:
-        with open(f'{PROJECT_DIR}/package.json', 'r') as file:
-            return json.load(file)
-    except FileNotFoundError:
-        print('Error: The "package.json" file is not found!!')
-
-
 def python(*args):
     command = [sys.executable]
     command.extend(args)
