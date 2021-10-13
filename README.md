@@ -5,18 +5,9 @@
 >pkg-cli is a command-line tool for Making a Python package that is configured with the standard **'package.json'** file.
 
 ## Installation
-Windows
-```shell
-py -m venv venv
-venv\Scripts\activate
-py -m pip install pkg-cli
-```
 
-Linux/unix/macOS
 ```shell
-python3 -m venv venv
-source venv/bin/activate
-python3 -m pip install pkg-cli
+pip install pkg-cli
 ```
 
 ## Usage
@@ -28,6 +19,11 @@ pkg init
 Publish package to PyPi
 ```shell
 pkg publish
+```
+
+If the 'pkg' command does not work, you can use the following command :
+```shell
+python -m pkg <command>
 ```
 
 <!-- MarkDown Links -->
