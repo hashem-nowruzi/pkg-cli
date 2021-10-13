@@ -20,7 +20,7 @@ python3 -m pip install pkg-cli
 ```
 
 ## Usage
-Create a 'package.json' file
+Create a 'setup.cfg' file
 ```shell
 pkg init
 ```
