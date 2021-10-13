@@ -1,4 +1,4 @@
-[![pypi version]](https://pypi.org/project/pkg-cli/)
+[![version]](https://pypi.org/project/pkg-cli/)
 [![python versions]](https://python.org)
 [![pypi license]](https://github.com/githashem/pkg-cli/blob/main/LICENSE)
 
@@ -28,6 +28,6 @@ python -m pkg <command>
 ```
 
 <!-- MarkDown Links -->
-[pypi version]: https://img.shields.io/pypi/v/pkg-cli?color=blue&style=flat-square
+[version]: https://img.shields.io/pypi/v/pkg-cli?label=version&style=flat-square
 [pypi license]: https://img.shields.io/pypi/l/pkg-cli?color=blue&style=flat-square
 [python versions]: https://img.shields.io/pypi/pyversions/pkg-cli?style=flat-square
