@@ -8,7 +8,7 @@ def get_parser():
     parser.add_argument('--version', action='version', version=__version__)
 
     subparsers = parser.add_subparsers(dest='command')
-    parser_init = subparsers.add_parser('init', help='Create "package.json" file')
+    parser_init = subparsers.add_parser('init', help='Create "setup.cfg" file')
     parser_init.set_defaults(func=init)
     parser_publish = subparsers.add_parser('publish', help='Publish package to PyPi')
     parser_publish.set_defaults(func=publish)

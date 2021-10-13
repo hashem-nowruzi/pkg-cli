@@ -10,7 +10,7 @@ class BaseCommandTest(unittest.TestCase):
         self.parser = get_parser()
 
     def tearDown(self) -> None:
-        (HERE / 'package.json').unlink(missing_ok=True)
+        (HERE / 'setup.cfg').unlink(missing_ok=True)
 
 
 class InitCommandTest(BaseCommandTest):
@@ -18,7 +18,7 @@ class InitCommandTest(BaseCommandTest):
         args = self.parser.parse_args(['init'])
         args.func(args)
 
-        self.assertTrue((HERE / 'package.json').is_file())
+        self.assertTrue((HERE / 'setup.cfg').is_file())
 
 
 if __name__ == '__main__':
