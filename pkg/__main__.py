@@ -1,27 +1,28 @@
-from .commands import InitCommand, PublishCommand
+from .commands import init, publish
 from argparse import ArgumentParser
 from . import __version__
 
 
-class PKG:
-    def __init__(self):
-        self.parser = ArgumentParser(prog='pkg')
-        self.parser.add_argument('--version', action='version', version=__version__)
+def get_parser():
+    parser = ArgumentParser(prog='pkg')
+    parser.add_argument('--version', action='version', version=__version__)
 
-        subparsers = self.parser.add_subparsers(dest='command')
-        InitCommand(subparsers.add_parser('init', help='Create "package.json" file'))
-        PublishCommand(subparsers.add_parser('publish', help='Publish package to PyPi'))
+    subparsers = parser.add_subparsers(dest='command')
+    parser_init = subparsers.add_parser('init', help='Create "setup.cfg" file')
+    parser_init.set_defaults(func=init)
+    parser_publish = subparsers.add_parser('publish', help='Publish package to PyPi')
+    parser_publish.set_defaults(func=publish)
 
-    def execute(self) -> None:
-        args = self.parser.parse_args()
-        if args.command is None:
-            self.parser.parse_args(['-h'])
-            return
-        args.func(args)
+    return parser
 
 
 def main():
-    PKG().execute()
+    parser = get_parser()
+    args = parser.parse_args()
+    if args.command is None:
+        parser.parse_args(['-h'])
+    else:
+        args.func(args)
 
 
 if __name__ == '__main__':

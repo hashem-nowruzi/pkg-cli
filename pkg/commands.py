@@ -1,47 +1,29 @@
-from .decorators import package_json_required
-from abc import ABC, abstractmethod
-from argparse import ArgumentParser
+from .decorators import setup_file_required
+from configparser import ConfigParser
+from .utils import python
 from . import PROJECT_DIR
-import subprocess
-import json
-import sys
 
 
-class BaseCommand(ABC):
-    def __init__(self, parser: ArgumentParser):
-        self.parser = parser
-        self.parser.set_defaults(func=self.execute)
+def init(args):
+    config = ConfigParser()
+    config['metadata'] = {
+        'name': '<package_name>',
+        'version': '0.1.0',
+    }
+    config['options'] = {
+        'packages': 'find:'
+    }
 
-    @abstractmethod
-    def execute(self, args) -> None:
-        pass
+    file = PROJECT_DIR / 'setup.cfg'
+    if file.exists() and file.is_file():
+        print('Warning: The "setup.cfg" file exists!!')
+        return
 
-    @staticmethod
-    def get_user_config():
-        try:
-            with open(f'{PROJECT_DIR}/package.json', 'r') as file:
-                return json.load(file)
-        except FileNotFoundError:
-            print('Error: The "package.json" file is not found!!')
-
-    @staticmethod
-    def python(*args):
-        command = [sys.executable]
-        command.extend(args)
-        subprocess.run(command)
+    with open(str(file), 'w') as outfile:
+        config.write(outfile)
 
 
-class InitCommand(BaseCommand):
-    @package_json_required(required=False)
-    def execute(self, args) -> None:
-        config = {"name": "<package_name>", "version": "0.1.0", "packages": []}
-
-        with open(f'{PROJECT_DIR}/package.json', 'w') as outfile:
-            json.dump(config, outfile, indent=4)
-
-
-class PublishCommand(BaseCommand):
-    @package_json_required
-    def execute(self, args) -> None:
-        self.python('-m', 'pkg.setup', 'sdist')
-        self.python('-m', 'twine', 'upload', 'dist/*')
+@setup_file_required
+def publish(args):
+    python('-m', 'pkg.setup', 'sdist')
+    python('-m', 'twine', 'upload', 'dist/*')
