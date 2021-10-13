@@ -3,7 +3,7 @@
 [![license]](https://github.com/githashem/pkg-cli/blob/main/LICENSE)
 
 ## What is pkg-cli?
->pkg-cli is a command-line tool for Making a Python package that is configured with the standard **'package.json'** file.
+>pkg-cli is a command-line tool for Making a Python package that is configured with the standard **'setup.cfg'** file.
 
 ## Installation
 
