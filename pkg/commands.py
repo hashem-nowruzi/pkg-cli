@@ -25,5 +25,5 @@ def init(args):
 
 @setup_file_required
 def publish(args):
-    python('-m', 'pkg.setup', 'sdist')
+    python('-m', 'build')
     python('-m', 'twine', 'upload', 'dist/*')
