@@ -22,6 +22,10 @@ def init(args):
     with open(str(file), 'w') as outfile:
         config.write(outfile)
 
+    if not (PROJECT_DIR / 'setup.py').exists():
+        (PROJECT_DIR / 'setup.py').touch()
+        (PROJECT_DIR / 'setup.py').write_text('from setuptools import setup\n\nsetup()\n')
+
 
 @setup_file_required
 def publish(args):
