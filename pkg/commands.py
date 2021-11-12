@@ -29,6 +29,11 @@ def init(args):
 
 
 @setup_file_required
+def build(args):
+    python('-m', 'build')
+
+
+@setup_file_required
 def publish(args):
     python('-m', 'build')
     python('-m', 'twine', 'upload', 'dist/*')
