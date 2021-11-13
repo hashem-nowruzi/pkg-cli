@@ -42,7 +42,12 @@ def publish(args):
 def freeze(args):
     packages_set = set()
     requires_set = set()
+    config = ConfigParser()
+    config.read(str(PROJECT_DIR / 'setup.cfg'))
+    package_name = config['metadata']['name']
     for package in pkg_resources.working_set:
+        if package.key == package_name:
+            continue
         packages_set.add(package.key)
         for require in package.requires():
             requires_set.add(require.key)
