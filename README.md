@@ -2,6 +2,8 @@
 [![python versions]](https://python.org)
 [![license]](https://github.com/githashem/pkg-cli/blob/main/LICENSE)
 
+**This tool is no longer actively maintained**
+
 ## What is pkg-cli?
 >pkg-cli is a command-line tool for Making a Python package that is configured with the standard **'setup.cfg'** file.
 
